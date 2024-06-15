@@ -1,0 +1,24 @@
+{
+  "ministry": "Ministerio da defesa",
+  "additionalInfo": ["Comando da Aeronáutica", "BASE AÉREA DE ANAPOLIS"],
+  "uasg": "120624",
+  "auctionInfo": "Pregão Eletrônico Nº 90042/2024 - (Lei Nº 14.133/2021)",
+  "object": "Objeto: Pregão Eletrônico -  Contratação de terceiro para o exercício de atividade de apoio para funcionamento de cantina/lanchonete, em área física de propriedade da União, na Base Aérea de Anápolis.",
+  "startDate": "12/06/2024 das 09:00 às 12:00 Hs e das 13:00 às 17:00 Hs",
+  "Address": "Br 414 Km 04 - Zona Rural - Anápolis - Goiás",
+  "telephone": null,
+  "fax": null,
+  "proposalDelivery": "12/06/2024 às 09:00Hs",
+  "serviceItens": [
+    {
+      "description": "1 - Cantina / Bar / Lanchonete / Refeição Rápida / Restaurante",
+      "extra-info": ["Cantina / Bar / Lanchonete / Refeição Rápida / Restaurante (Menor preço da cesta de produtos da cantina / lanchonete conforme tabela 2 do Termo de Referência).",
+      "Tratamento Diferenciado: Tipo I - Participação Exclusiva de ME/EPP/Equiparada",
+      "Aplicabilidade Decreto 7174: Não",
+      "Aplicabilidade Margem de Preferência: Não",
+      "Quantidade: 1",
+      "Unidade de fornecimento: UNIDADE"
+    ]
+    }
+  ]
+}
