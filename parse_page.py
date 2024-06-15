@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 import pprint
 import re
 from bs4 import BeautifulSoup, NavigableString
@@ -174,18 +175,8 @@ def save_data_as_json(data, filename):
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
-# for html_file in html_files:
-#   file_path = os.path.join('details', html_file)
-#   with codecs.open(file_path, 'r', 'utf-8') as file:
-#       html_content = file.read()
-#       parsed_data = parse_html(html_content)
-#       # Save each parsed data into a JSON file
-#       json_filename = os.path.splitext(html_file)[0] + '.json'
-#       json_path = os.path.join('decoded', json_filename)  # save JSON in a subdirectory 'json'
-#       save_data_as_json(parsed_data, json_path)
-
-details_dir = 'details'
-decoded_dir = 'decoded'
+details_dir = Path('data') / 'details'
+decoded_dir = Path('data') / 'decoded'
 
 for root, dirs, files in os.walk(details_dir):
     for file in files:
