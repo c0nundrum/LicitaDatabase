@@ -11,7 +11,7 @@ def parse_body(body):
     key = None
 
     for i, item in enumerate(body):
-        if ':' in item:
+        if item.strip().endswith(':'):
             if key:  # Previous key without a value
                 parsed_body[key] = ''
             key = item.split(':')[0].strip()
