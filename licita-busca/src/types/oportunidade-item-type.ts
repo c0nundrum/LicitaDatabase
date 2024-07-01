@@ -1,0 +1,37 @@
+export type OportunidadeItemProps = {
+  title?: string;
+  description?: string;
+  item_url?: string;
+  numero?: string | null;
+  ano?: string;
+  modalidade_licitacao_nome?: string;
+  situacao_nome?: string;
+  data_inicio_vigencia?: string | null;
+  data_fim_vigencia?: string | null;
+  valorTotalEstimado?: number;
+  orgao_nome?: string;
+  unidade_nome?: string;
+  municipio_nome?: string;
+  uf?: string;
+  objetoCompra?: string;
+  dataAberturaProposta?: string | null;
+  dataEncerramentoProposta?: string | null;
+  dataAberturaSessao?: string | null;
+  linkSistemaOrigem?: string | null;
+  itens?: Array<{
+    numeroItem: number;
+    descricao: string;
+    materialOuServicoNome: string;
+    valorUnitarioEstimado: number;
+    valorTotal: number;
+    quantidade: number;
+    unidadeMedida: string;
+    itemCategoriaNome: string;
+    criterioJulgamentoNome: string;
+    situacaoCompraItemNome: string;
+    tipoBeneficioNome: string;
+    incentivoProdutivoBasico: boolean;
+    dataInclusao: string;
+    dataAtualizacao: string;
+  }>;
+};
