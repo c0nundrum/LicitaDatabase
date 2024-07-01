@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mongodb:
+    build:
+      context: ./mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  nextjs-app:
+    build:
+      context: ./licita-busca
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+
+  python-backend:
+    build:
+      context: ./python_backend
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_data:
