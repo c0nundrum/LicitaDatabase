@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import OportunidadeItem from "@/components/oportunidades/oportunidade-item";
-import detalhesEditalDuplicated from "@/data/all_data.json";
 import { Pagination } from "./pagination";
 import { Filters } from "./filters";
 
@@ -12,8 +11,27 @@ export default function OportunidadeList() {
   const [advancedFilters, setAdvancedFilters] = useState<{ states: string[] }>({
     states: [],
   });
+  const [oportunidades, setOportunidades] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const itemsPerPage = 5;
+
+  useEffect(() => {
+    const fetchOportunidades = async () => {
+      try {
+        const response = await fetch("/api/oportunidades");
+        const data = await response.json();
+        console.log(data);
+        setOportunidades(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erro ao buscar oportunidades:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchOportunidades();
+  }, []);
 
   const handleFilterChange = (filter: string | null) => {
     setSelectedFilter(filter);
@@ -25,22 +43,22 @@ export default function OportunidadeList() {
     setCurrentPage(1); // Volta pra primeira página quando muda o filtro
   };
 
-  const filteredItems = detalhesEditalDuplicated.filter((item) => {
+  const filteredItems = oportunidades.filter((item) => {
     if (
       selectedFilter === "pregao" &&
-      item.modalidade_licitacao_nome !== "Pregão - Eletrônico"
+      item.modalidadeNome !== "Pregão - Eletrônico"
     ) {
       return false;
     } else if (
       selectedFilter === "dispensa" &&
-      item.modalidade_licitacao_nome !== "Dispensa"
+      item.modalidadeNome !== "Dispensa"
     ) {
       return false;
     }
 
     if (
       advancedFilters.states.length > 0 &&
-      !advancedFilters.states.includes(item.uf)
+      !advancedFilters.states.includes(item.unidadeOrgao.ufSigla)
     ) {
       return false;
     }
@@ -57,6 +75,10 @@ export default function OportunidadeList() {
   function handlePageChange(newPage: number) {
     setCurrentPage(newPage);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  if (loading) {
+    return <div>Carregando...</div>;
   }
 
   return (

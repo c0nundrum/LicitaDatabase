@@ -1,22 +1,30 @@
 export type OportunidadeItemProps = {
   title?: string;
+  tipoInstrumentoConvocatorioNome?: string;
+  numeroCompra?: string;
   description?: string;
   item_url?: string;
   numero?: string | null;
   ano?: string;
-  modalidade_licitacao_nome?: string;
-  situacao_nome?: string;
+  modalidadeNome?: string;
+  situacaoCompraNome?: string;
   data_inicio_vigencia?: string | null;
   data_fim_vigencia?: string | null;
   valorTotalEstimado?: number;
   orgao_nome?: string;
+  orgaoEntidade?: {
+    razaoSocial?: string;
+  };
   unidade_nome?: string;
-  municipio_nome?: string;
-  uf?: string;
+  unidadeOrgao?: {
+    ufSigla?: string;
+    municipioNome?: string;
+    nomeUnidade?: string;
+  };
   objetoCompra?: string;
   dataAberturaProposta?: string | null;
   dataEncerramentoProposta?: string | null;
-  dataAberturaSessao?: string | null;
+  publicSessionDatetime?: string | null;
   linkSistemaOrigem?: string | null;
   itens?: Array<{
     numeroItem: number;

@@ -23,20 +23,22 @@ export default function OportunidadeItem({
   item_url,
   numero,
   ano,
-  modalidade_licitacao_nome,
-  situacao_nome,
+  modalidadeNome,
+  situacaoCompraNome,
   data_inicio_vigencia,
   data_fim_vigencia,
   valorTotalEstimado,
   orgao_nome,
+  orgaoEntidade,
   unidade_nome,
-  municipio_nome,
-  uf,
+  unidadeOrgao,
   objetoCompra,
   dataAberturaProposta,
   dataEncerramentoProposta,
-  dataAberturaSessao,
+  publicSessionDatetime,
   linkSistemaOrigem,
+  tipoInstrumentoConvocatorioNome,
+  numeroCompra,
   itens = [],
 }: OportunidadeItemProps) {
   const [showContent, setShowContent] = useState(false);
@@ -62,41 +64,18 @@ export default function OportunidadeItem({
     <Card className="overflow-hidden">
       <CardHeader className="flex flex-row items-start bg-muted/50">
         <div className="grid gap-2">
-          {title && (
+          {tipoInstrumentoConvocatorioNome && (
             <CardTitle className="group flex items-center gap-2 text-lg">
-              {municipio_nome}-{uf}: {title}
+              {unidadeOrgao?.municipioNome}-{unidadeOrgao?.ufSigla}:{" "}
+              {tipoInstrumentoConvocatorioNome} nº {numeroCompra}
             </CardTitle>
           )}
           <div className="space-y-2">
-            {description && <p>{description}</p>}
-            {orgao_nome && (
+            {objetoCompra && <p>{objetoCompra}</p>}
+            {orgaoEntidade?.razaoSocial && (
               <div>
                 <span className="font-semibold">Órgão: </span>
-                {orgao_nome}
-              </div>
-            )}
-            {dataAberturaProposta && (
-              <div>
-                <span className="font-semibold">
-                  Data de Abertura da Proposta:{" "}
-                </span>
-                {formatDate(dataAberturaProposta)}
-              </div>
-            )}
-            {dataEncerramentoProposta && (
-              <div>
-                <span className="font-semibold">
-                  Data de Encerramento da Proposta:{" "}
-                </span>
-                {formatDate(dataEncerramentoProposta)}
-              </div>
-            )}
-            {dataAberturaSessao && (
-              <div>
-                <span className="font-semibold">
-                  Data de Abertura da Sessão:{" "}
-                </span>
-                {formatDate(dataAberturaSessao)}
+                {orgaoEntidade?.razaoSocial}
               </div>
             )}
             {valorTotalEstimado && (
@@ -105,10 +84,10 @@ export default function OportunidadeItem({
                 {formatCurrency(valorTotalEstimado)}
               </div>
             )}
-            {modalidade_licitacao_nome && (
+            {modalidadeNome && (
               <div>
                 <span className="font-semibold">Modalidade: </span>
-                {modalidade_licitacao_nome}
+                {modalidadeNome}
               </div>
             )}
             {linkSistemaOrigem && (
@@ -141,28 +120,16 @@ export default function OportunidadeItem({
         <CardContent className="p-6 text-sm">
           <div className="grid gap-3">
             <div className="font-semibold text-lg">Detalhes do Pregão</div>
-            {modalidade_licitacao_nome && (
+            {modalidadeNome && (
               <div>
                 <span className="font-semibold">Modalidade de Licitação: </span>
-                {modalidade_licitacao_nome}
+                {modalidadeNome}
               </div>
             )}
-            {situacao_nome && (
+            {situacaoCompraNome && (
               <div>
                 <span className="font-semibold">Situação: </span>
-                {situacao_nome}
-              </div>
-            )}
-            {data_inicio_vigencia && (
-              <div>
-                <span className="font-semibold">Início da Vigência: </span>
-                {formatDate(data_inicio_vigencia)}
-              </div>
-            )}
-            {data_fim_vigencia && (
-              <div>
-                <span className="font-semibold">Fim da Vigência: </span>
-                {formatDate(data_fim_vigencia)}
+                {situacaoCompraNome}
               </div>
             )}
             {valorTotalEstimado && (
@@ -173,28 +140,28 @@ export default function OportunidadeItem({
             )}
             <Separator className="my-2" />
             <div className="font-semibold text-lg">Informações Adicionais</div>
-            {orgao_nome && (
+            {orgaoEntidade?.razaoSocial && (
               <div>
                 <span className="font-semibold">Órgão: </span>
-                {orgao_nome}
+                {orgaoEntidade?.razaoSocial}
               </div>
             )}
-            {unidade_nome && (
+            {unidadeOrgao?.nomeUnidade && (
               <div>
                 <span className="font-semibold">Unidade: </span>
-                {unidade_nome}
+                {unidadeOrgao?.nomeUnidade}
               </div>
             )}
-            {municipio_nome && (
+            {unidadeOrgao?.municipioNome && (
               <div>
                 <span className="font-semibold">Município: </span>
-                {municipio_nome}
+                {unidadeOrgao?.municipioNome}
               </div>
             )}
-            {uf && (
+            {unidadeOrgao?.ufSigla && (
               <div>
                 <span className="font-semibold">UF: </span>
-                {uf}
+                {unidadeOrgao?.ufSigla}
               </div>
             )}
             {objetoCompra && (
@@ -205,6 +172,14 @@ export default function OportunidadeItem({
             )}
             <Separator className="my-2" />
             <div className="font-semibold text-lg">Datas Importantes</div>
+            {publicSessionDatetime && (
+              <div>
+                <span className="font-semibold">
+                  Data de Abertura da Sessão:{" "}
+                </span>
+                {formatDate(publicSessionDatetime)}
+              </div>
+            )}
             {dataAberturaProposta && (
               <div>
                 <span className="font-semibold">
@@ -239,11 +214,11 @@ export default function OportunidadeItem({
         </CardContent>
       )}
       <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
-        {data_fim_vigencia && (
+        {publicSessionDatetime && (
           <div className="text-xs text-muted-foreground">
-            Fim da vigência:{" "}
-            <time dateTime={data_fim_vigencia}>
-              {formatDate(data_fim_vigencia)}
+            Data de Abertura da Sessão:{" "}
+            <time dateTime={publicSessionDatetime}>
+              {formatDate(publicSessionDatetime)}
             </time>
           </div>
         )}

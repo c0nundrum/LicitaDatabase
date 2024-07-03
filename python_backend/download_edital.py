@@ -7,6 +7,9 @@ import os
 import fitz  # PyMuPDF
 from rapidfuzz.distance import DamerauLevenshtein
 
+# Ensure the 'compiled/editais' directory exists
+Path("compiled/editais").mkdir(parents=True, exist_ok=True)
+
 def download_file(url) -> Path:
     # Send a GET request to the URL
     response = requests.get(url, stream=True)
@@ -19,7 +22,7 @@ def download_file(url) -> Path:
     else:
         filename = 'downloaded_file.bin'  # Fallback filename
 
-    print(f"trying to get session info from: {filename}")
+    print(f"Trying to get session info from: {filename}")
 
     complete_path = Path("compiled") / Path("editais") / filename
     # Write the response content to a local file
@@ -30,16 +33,16 @@ def download_file(url) -> Path:
     return complete_path
 
 def extract_files(archive_path):
-    files = []
+    extracted_files = []
     if archive_path.endswith('.zip'):
         with zipfile.ZipFile(archive_path, 'r') as zip_ref:
             zip_ref.extractall('temp')
-            files = zip_ref.namelist()
+            extracted_files = zip_ref.namelist()
     elif archive_path.endswith('.rar'):
         with rarfile.RarFile(archive_path, 'r') as rar_ref:
             rar_ref.extractall('temp')
-            files = rar_ref.namelist()
-    return files
+            extracted_files = rar_ref.namelist()
+    return extracted_files
 
 def find_edital_file(files):
     for file in files:
@@ -75,18 +78,41 @@ def search_string_in_file(file_path):
 
     return closest_line
 
+def delete_file(file_path):
+    try:
+        os.remove(file_path)
+        print(f"Deleted file: {file_path}")
+    except OSError as e:
+        print(f"Error: {file_path} : {e.strerror}")
+
+def delete_extracted_files(files):
+    for file in files:
+        try:
+            os.remove(os.path.join('temp', file))
+            print(f"Deleted extracted file: {file}")
+        except OSError as e:
+            print(f"Error: {file} : {e.strerror}")
+
 def get_public_session_date(url):
     downloaded_file = download_file(url)
+    extracted_files = []
     if downloaded_file.suffix == '.pdf':
         edital_file = downloaded_file
     elif downloaded_file.suffix == '.zip' or downloaded_file.suffix == '.rar':
-      files = extract_files(downloaded_file)
-      edital_file = find_edital_file(files)
+        extracted_files = extract_files(str(downloaded_file))
+        edital_file = find_edital_file(str(extracted_files))
     
     if edital_file:
         best_match = search_string_in_file(edital_file)
+        if best_match:
+            print(f"Best match: {best_match}")
+            delete_file(downloaded_file)
+            delete_extracted_files(extracted_files)
+        else:
+            print("No date found in edital file, keeping the file for manual review.")
         return best_match 
     else:
+        print("No file with 'edital' in the name found, keeping the archive for manual review.")
         return None 
 
 if __name__ == "__main__":
@@ -96,4 +122,4 @@ if __name__ == "__main__":
     if best_match:
         print(f"Best match: {best_match}")
     else:
-        print("No file with 'edital' in the name found.")
+        print("No date found in any file.")
