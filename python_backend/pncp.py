@@ -177,7 +177,7 @@ def fix_date_time(edital_data: Dict[str, Any]):
 # 6 = Pregão - Eletrônico
 # 4 = Concorrência - Eletrônica
 # 1 = Leilão - Eletrônico
-def scrape_search_api(edital_type_code: Literal[8, 6, 4, 1] = 6):
+def scrape_search_api(edital_type_code: Literal[8, 6, 4, 1] = 8):
     page_index = 1
     today = datetime.today().strftime('%Y%m%d')
 

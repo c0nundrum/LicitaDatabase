@@ -104,12 +104,12 @@ def get_public_session_date(url):
     
     if edital_file:
         best_match = search_string_in_file(edital_file)
-        if best_match:
-            print(f"Best match: {best_match}")
-            delete_file(downloaded_file)
-            delete_extracted_files(extracted_files)
-        else:
-            print("No date found in edital file, keeping the file for manual review.")
+        # if best_match:
+            # print(f"Best match: {best_match}")
+        delete_file(downloaded_file)
+        delete_extracted_files(extracted_files)
+        # else:
+        print("No date found in edital file, keeping the file for manual review.")
         return best_match 
     else:
         print("No file with 'edital' in the name found, keeping the archive for manual review.")

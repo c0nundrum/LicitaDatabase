@@ -172,12 +172,12 @@ export default function OportunidadeItem({
             )}
             <Separator className="my-2" />
             <div className="font-semibold text-lg">Datas Importantes</div>
-            {publicSessionDatetime && (
+            {dataEncerramentoProposta && (
               <div>
                 <span className="font-semibold">
                   Data de Abertura da Sessão:{" "}
                 </span>
-                {formatDate(publicSessionDatetime)}
+                {formatDate(dataEncerramentoProposta)}
               </div>
             )}
             {dataAberturaProposta && (
@@ -214,11 +214,11 @@ export default function OportunidadeItem({
         </CardContent>
       )}
       <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
-        {publicSessionDatetime && (
+        {dataEncerramentoProposta && (
           <div className="text-xs text-muted-foreground">
             Data de Abertura da Sessão:{" "}
-            <time dateTime={publicSessionDatetime}>
-              {formatDate(publicSessionDatetime)}
+            <time dateTime={dataEncerramentoProposta}>
+              {formatDate(dataEncerramentoProposta)}
             </time>
           </div>
         )}
