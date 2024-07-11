@@ -29,6 +29,17 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+
+        // our colors
+        olivine: "hsl(var(--olivine))",
+        "olivine-foreground": "hsl(var(--olivine-foreground))",
+        persimmon: "hsl(var(--persimmon))",
+        "persimmon-foreground": "hsl(var(--persimmon-foreground))",
+        canary: "hsl(var(--canary))",
+        "canary-foreground": "hsl(var(--canary-foreground))",
+        cerulean: "hsl(var(--cerulean))",
+        "cerulean-foreground": "hsl(var(--cerulean-foreground))",
+
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
