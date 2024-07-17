@@ -33,7 +33,7 @@ export function AdvancedFilter({
     return (
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Card className="flex flex-col items-center justify-center gap-2 p-2 flex-1 min-w-[150px] cursor-pointer shadow-md">
+          <Card className="flex flex-col items-center justify-center gap-2 p-2 flex-1 min-w-[150px] cursor-pointer select-none shadow-md">
             <CardHeader className="flex flex-col items-center gap-2">
               <Filter />
               <CardTitle>Filtro Avançado</CardTitle>

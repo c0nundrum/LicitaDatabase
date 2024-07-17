@@ -23,9 +23,9 @@ export function Filters({
   return (
     <div className="flex flex-wrap gap-4 md:gap-12">
       <Card
-        className={`flex flex-col items-center justify-center gap-2 p-2 flex-1 min-w-[150px] cursor-pointer shadow-md ${
+        className={`flex flex-col items-center justify-center gap-2 p-2 flex-1 min-w-[150px] cursor-pointer select-none shadow-md ${
           selectedFilter === "pregao"
-            ? "bg-primary text-primary-foreground"
+            ? "bg-olivine text-primary-foreground"
             : ""
         }`}
         onClick={() => handleCardClick("pregao")}
@@ -36,9 +36,9 @@ export function Filters({
         </CardHeader>
       </Card>
       <Card
-        className={`flex flex-col items-center justify-center gap-2 p-2 flex-1 min-w-[150px] cursor-pointer shadow-md ${
+        className={`flex flex-col items-center justify-center gap-2 p-2 flex-1 min-w-[150px] cursor-pointer select-none shadow-md ${
           selectedFilter === "dispensa"
-            ? "bg-primary text-primary-foreground"
+            ? "bg-olivine text-primary-foreground"
             : ""
         }`}
         onClick={() => handleCardClick("dispensa")}

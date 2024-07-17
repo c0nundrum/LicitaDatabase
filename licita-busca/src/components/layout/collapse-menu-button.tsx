@@ -10,13 +10,13 @@ import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger
+  CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-  TooltipProvider
+  TooltipProvider,
 } from "@/components/ui/tooltip";
 import {
   DropdownMenu,
@@ -24,7 +24,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuSeparator
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
 type Submenu = {
@@ -46,7 +46,7 @@ export function CollapseMenuButton({
   label,
   active,
   submenus,
-  isOpen
+  isOpen,
 }: CollapseMenuButtonProps) {
   const isSubmenuActive = submenus.some((submenu) => submenu.active);
   const [isCollapsed, setIsCollapsed] = useState<boolean>(isSubmenuActive);
@@ -63,12 +63,24 @@ export function CollapseMenuButton({
       >
         <Button
           variant={active ? "secondary" : "ghost"}
-          className="w-full justify-start h-10"
+          className={cn(
+            "w-full justify-start h-10",
+            isSubmenuActive ? "text-black" : "text-white"
+          )}
         >
           <div className="w-full items-center flex justify-between">
             <div className="flex items-center">
               <span className="mr-4">
-                <Icon size={18} />
+                <Icon
+                  size={18}
+                  className={
+                    isOpen
+                      ? "text-current"
+                      : active
+                      ? "text-black"
+                      : "text-white"
+                  }
+                />
               </span>
               <p
                 className={cn(
@@ -102,19 +114,33 @@ export function CollapseMenuButton({
           <Button
             key={index}
             variant={active ? "secondary" : "ghost"}
-            className="w-full justify-start h-10 mb-1"
+            className={cn(
+              "w-full justify-start h-10 mb-1",
+              active ? "text-black" : "text-white",
+              !active && "hover:text-black"
+            )}
             asChild
           >
             <Link href={href}>
               <span className="mr-4 ml-2">
-                <Dot size={18} />
+                <Dot
+                  size={18}
+                  className={
+                    isOpen
+                      ? "text-current"
+                      : active
+                      ? "text-black"
+                      : "text-white"
+                  }
+                />
               </span>
               <p
                 className={cn(
                   "max-w-[170px] truncate",
                   isOpen
                     ? "translate-x-0 opacity-100"
-                    : "-translate-x-96 opacity-0"
+                    : "-translate-x-96 opacity-0",
+                  active ? "text-black" : "text-white"
                 )}
               >
                 {label}
@@ -137,7 +163,16 @@ export function CollapseMenuButton({
                 <div className="w-full items-center flex justify-between">
                   <div className="flex items-center">
                     <span className={cn(isOpen === false ? "" : "mr-4")}>
-                      <Icon size={18} />
+                      <Icon
+                        size={18}
+                        className={
+                          isOpen === false
+                            ? active
+                              ? "text-black"
+                              : "text-white"
+                            : "text-current"
+                        }
+                      />
                     </span>
                     <p
                       className={cn(

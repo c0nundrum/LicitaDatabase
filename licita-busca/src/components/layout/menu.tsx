@@ -31,14 +31,14 @@ export function Menu({ isOpen }: MenuProps) {
           {menuList.map(({ groupLabel, menus }, index) => (
             <li className={cn("w-full", groupLabel ? "pt-5" : "")} key={index}>
               {(isOpen && groupLabel) || isOpen === undefined ? (
-                <p className="text-sm font-medium text-muted-foreground px-4 pb-2 max-w-[248px] truncate">
+                <p className="text-sm font-medium text-white px-4 pb-2 max-w-[248px] truncate">
                   {groupLabel}
                 </p>
               ) : !isOpen && isOpen !== undefined && groupLabel ? (
                 <TooltipProvider>
                   <Tooltip delayDuration={100}>
                     <TooltipTrigger className="w-full">
-                      <div className="w-full flex justify-center items-center">
+                      <div className="w-full flex justify-center items-center text-white">
                         <Ellipsis className="h-5 w-5" />
                       </div>
                     </TooltipTrigger>
@@ -59,21 +59,41 @@ export function Menu({ isOpen }: MenuProps) {
                           <TooltipTrigger asChild>
                             <Button
                               variant={active ? "secondary" : "ghost"}
-                              className="w-full justify-start h-10 mb-1"
+                              className={cn(
+                                "w-full justify-start h-10 mb-1",
+                                active ? "text-black" : "text-white",
+                                "hover:text-black",
+                                "hover:fill-black"
+                              )}
                               asChild
                             >
-                              <Link href={href}>
+                              <Link
+                                href={href}
+                                className="flex items-center w-full group"
+                              >
                                 <span
                                   className={cn(isOpen === false ? "" : "mr-4")}
                                 >
-                                  <Icon size={18} />
+                                  <Icon
+                                    size={18}
+                                    className={cn(
+                                      isOpen === false
+                                        ? active
+                                          ? "text-black"
+                                          : "text-white"
+                                        : "text-current",
+                                      "group-hover:text-black"
+                                    )}
+                                  />
                                 </span>
                                 <p
                                   className={cn(
                                     "max-w-[200px] truncate",
                                     isOpen === false
                                       ? "-translate-x-96 opacity-0"
-                                      : "translate-x-0 opacity-100"
+                                      : "translate-x-0 opacity-100",
+                                    active ? "text-black" : "text-white",
+                                    "group-hover:text-black"
                                   )}
                                 >
                                   {label}
