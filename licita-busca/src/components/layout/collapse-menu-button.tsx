@@ -64,7 +64,7 @@ export function CollapseMenuButton({
         <Button
           variant={active ? "secondary" : "ghost"}
           className={cn(
-            "w-full justify-start h-10",
+            "w-full justify-start h-10 group",
             isSubmenuActive ? "text-black" : "text-white"
           )}
         >
@@ -73,13 +73,14 @@ export function CollapseMenuButton({
               <span className="mr-4">
                 <Icon
                   size={18}
-                  className={
+                  className={cn(
                     isOpen
                       ? "text-current"
                       : active
                       ? "text-black"
-                      : "text-white"
-                  }
+                      : "text-white",
+                    "group-hover:text-black"
+                  )}
                 />
               </span>
               <p
@@ -87,7 +88,9 @@ export function CollapseMenuButton({
                   "max-w-[150px] truncate",
                   isOpen
                     ? "translate-x-0 opacity-100"
-                    : "-translate-x-96 opacity-0"
+                    : "-translate-x-96 opacity-0",
+                  active ? "text-black" : "text-white",
+                  "group-hover:text-black"
                 )}
               >
                 {label}
@@ -103,7 +106,7 @@ export function CollapseMenuButton({
             >
               <ChevronDown
                 size={18}
-                className="transition-transform duration-200"
+                className="transition-transform duration-200 group-hover:text-black"
               />
             </div>
           </div>
@@ -115,7 +118,7 @@ export function CollapseMenuButton({
             key={index}
             variant={active ? "secondary" : "ghost"}
             className={cn(
-              "w-full justify-start h-10 mb-1",
+              "w-full justify-start h-10 mb-1 group",
               active ? "text-black" : "text-white",
               !active && "hover:text-black"
             )}
@@ -125,13 +128,14 @@ export function CollapseMenuButton({
               <span className="mr-4 ml-2">
                 <Dot
                   size={18}
-                  className={
+                  className={cn(
                     isOpen
                       ? "text-current"
                       : active
                       ? "text-black"
-                      : "text-white"
-                  }
+                      : "text-white",
+                    !active && "group-hover:text-black"
+                  )}
                 />
               </span>
               <p
@@ -140,7 +144,8 @@ export function CollapseMenuButton({
                   isOpen
                     ? "translate-x-0 opacity-100"
                     : "-translate-x-96 opacity-0",
-                  active ? "text-black" : "text-white"
+                  active ? "text-black" : "text-white",
+                  !active && "group-hover:text-black"
                 )}
               >
                 {label}
