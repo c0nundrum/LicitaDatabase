@@ -12,26 +12,15 @@ export default function OportunidadeList() {
     states: [],
   });
   const [oportunidades, setOportunidades] = useState<any[]>([]);
+  const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const itemsPerPage = 5;
 
   useEffect(() => {
-    const fetchOportunidades = async () => {
-      try {
-        const response = await fetch("/api/oportunidades");
-        const data = await response.json();
-        console.log(data);
-        setOportunidades(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Erro ao buscar oportunidades:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchOportunidades();
-  }, []);
+    fetchOportunidades(selectedFilter);
+    countOportunidades(selectedFilter);
+  }, [selectedFilter]);
 
   const handleFilterChange = (filter: string | null) => {
     setSelectedFilter(filter);
@@ -43,39 +32,43 @@ export default function OportunidadeList() {
     setCurrentPage(1); // Volta pra primeira página quando muda o filtro
   };
 
-  const filteredItems = oportunidades.filter((item) => {
-    if (
-      selectedFilter === "pregao" &&
-      item.modalidadeNome !== "Pregão - Eletrônico"
-    ) {
-      return false;
-    } else if (
-      selectedFilter === "dispensa" &&
-      item.modalidadeNome !== "Dispensa"
-    ) {
-      return false;
-    }
-
-    if (
-      advancedFilters.states.length > 0 &&
-      !advancedFilters.states.includes(item.unidadeOrgao.ufSigla)
-    ) {
-      return false;
-    }
-
-    return true;
-  });
-
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentItems = filteredItems.slice(startIndex, endIndex);
+  const currentItems = oportunidades.slice(startIndex, endIndex);
 
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+  const totalPages = Math.ceil(oportunidades.length / itemsPerPage);
 
   function handlePageChange(newPage: number) {
     setCurrentPage(newPage);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+  const countOportunidades = async (selectedFilter:any) => {
+    try {
+      const params = {'modalidadeNome': selectedFilter};
+      const url = new URL("/api/oportunidade-count", window.location.origin);
+      url.search = new URLSearchParams(params).toString();
+      const response = await fetch(url);
+      const data = await response.json();
+      setTotalItems(data)
+    } catch (error) {
+      console.error("Erro ao contar:", error);
+    }
+  };
+
+  const fetchOportunidades = async (selectedFilter:any) => {
+    try {
+      const params = {'modalidadeNome': selectedFilter};
+      const url = new URL("/api/oportunidades", window.location.origin);
+      url.search = new URLSearchParams(params).toString();
+      const response = await fetch(url);
+      const data = await response.json();
+      setOportunidades(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Erro ao buscar oportunidades:", error);
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return <div>Carregando...</div>;
@@ -94,6 +87,7 @@ export default function OportunidadeList() {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
+        totalItems={totalItems}
       />
     </>
   );

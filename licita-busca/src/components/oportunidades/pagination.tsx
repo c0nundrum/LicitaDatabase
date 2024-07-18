@@ -5,10 +5,12 @@ export function Pagination({
   currentPage,
   totalPages,
   onPageChange,
+  totalItems
 }: {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  totalItems: number;
 }) {
   const handlePageChange = (newPage: number) => {
     onPageChange(newPage);
@@ -33,6 +35,9 @@ export function Pagination({
       >
         <ChevronRight />
       </Button>
+      <div className="text-center">
+        Total encontrados: {totalItems}
+      </div>
     </div>
   );
 }

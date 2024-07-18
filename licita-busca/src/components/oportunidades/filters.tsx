@@ -24,11 +24,11 @@ export function Filters({
     <div className="flex flex-wrap gap-4 md:gap-12">
       <Card
         className={`flex flex-col items-center justify-center gap-2 p-2 flex-1 min-w-[150px] cursor-pointer select-none shadow-md ${
-          selectedFilter === "pregao"
+          selectedFilter === "Pregão - Eletrônico"
             ? "bg-olivine text-primary-foreground"
             : ""
         }`}
-        onClick={() => handleCardClick("pregao")}
+        onClick={() => handleCardClick("Pregão - Eletrônico")}
       >
         <CardHeader className="flex flex-col items-center gap-2">
           <Gavel />
@@ -37,11 +37,11 @@ export function Filters({
       </Card>
       <Card
         className={`flex flex-col items-center justify-center gap-2 p-2 flex-1 min-w-[150px] cursor-pointer select-none shadow-md ${
-          selectedFilter === "dispensa"
+          selectedFilter === "Dispensa"
             ? "bg-olivine text-primary-foreground"
             : ""
         }`}
-        onClick={() => handleCardClick("dispensa")}
+        onClick={() => handleCardClick("Dispensa")}
       >
         <CardHeader className="flex flex-col items-center gap-2">
           <Newspaper />
