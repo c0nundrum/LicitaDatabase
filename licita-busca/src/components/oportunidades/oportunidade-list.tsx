@@ -18,7 +18,7 @@ export default function OportunidadeList() {
   const itemsPerPage = 5;
 
   useEffect(() => {
-    fetchOportunidades(selectedFilter);
+    fetchOportunidades(selectedFilter, null);
     countOportunidades(selectedFilter);
   }, [selectedFilter]);
 
@@ -29,6 +29,7 @@ export default function OportunidadeList() {
 
   const handleApplyFilters = (filters: { states: string[] }) => {
     setAdvancedFilters(filters);
+    fetchOportunidades(selectedFilter, advancedFilters);
     setCurrentPage(1); // Volta pra primeira página quando muda o filtro
   };
 
@@ -55,9 +56,12 @@ export default function OportunidadeList() {
     }
   };
 
-  const fetchOportunidades = async (selectedFilter:any) => {
+  const fetchOportunidades = async (selectedFilter:any, advancedFilters:any) => {
     try {
-      const params = {'modalidadeNome': selectedFilter};
+      const params = {'modalidadeNome': selectedFilter,
+        'unidadeOrgao.ufSigla': advancedFilters.states
+      };
+      console.log(params)
       const url = new URL("/api/oportunidades", window.location.origin);
       url.search = new URLSearchParams(params).toString();
       const response = await fetch(url);
