@@ -208,6 +208,7 @@ export default function OportunidadeItem({
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={handlePageChange}
+                totalItems={itens.length}
               />
             )}
           </div>

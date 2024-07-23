@@ -5,7 +5,7 @@ export function Pagination({
   currentPage,
   totalPages,
   onPageChange,
-  totalItems
+  totalItems,
 }: {
   currentPage: number;
   totalPages: number;
@@ -35,9 +35,7 @@ export function Pagination({
       >
         <ChevronRight />
       </Button>
-      <div className="text-center">
-        Total encontrados: {totalItems}
-      </div>
+      <div className="text-center">Total encontrados: {totalItems}</div>
     </div>
   );
 }

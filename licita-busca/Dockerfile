@@ -18,12 +18,16 @@ RUN npm install
 # Copy the rest of your app's source code from your host to your image filesystem.
 COPY . .
 
+EXPOSE 3000
+
+CMD npm run build
+
 # Build the Next.js application
-RUN npm run build
+#RUN npm run build
 # If you are using yarn, you can replace the above line with:
 # RUN yarn build
 
 # The command to run your app (port 3000 is the default for Next.js)
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
 # If you are using yarn, you can replace the above command with:
 # CMD ["yarn", "start"]
